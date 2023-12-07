@@ -6,7 +6,7 @@ using namespace std;
 
 typedef vector<vector<int>> Graph;
 
-std::vector<std::vector<int>> LerGrafo(const std::string &nomeArquivo, int &numVertices)
+std::vector<std::vector<int>> ReadGraph(const std::string &nomeArquivo, int &numVertices)
 {
     std::ifstream arquivo(nomeArquivo);
     int numArestas;
@@ -37,8 +37,9 @@ vector<int> max(vector<int> c_1, vector<int> c_2)
 
 vector<int> rec_max_clique(Graph &grafo, int curr_vertex, vector<int> curr_clique)
 {
-    if (curr_vertex == grafo.size())
+    if (curr_vertex == (int) grafo.size())
         return curr_clique;
+    
     // Here we have two options:
     // 1. Add the vertex to the clique
     // 2. Don't add the vertex to the clique
@@ -59,7 +60,9 @@ vector<int> rec_max_clique(Graph &grafo, int curr_vertex, vector<int> curr_cliqu
         curr_clique.push_back(curr_vertex);
         vector<int> clique_1;
         vector<int> clique_2;
+        // Option 1
         clique_1 = rec_max_clique(grafo, curr_vertex + 1, curr_clique);
+        // Option 2
         clique_2 = rec_max_clique(grafo, curr_vertex + 1, not_curr_clique);
         return max(clique_1, clique_2);
     } else {
@@ -67,7 +70,7 @@ vector<int> rec_max_clique(Graph &grafo, int curr_vertex, vector<int> curr_cliqu
     }
 }
 
-vector<int> find_max_clique(Graph &grafo, int n_vertices)
+vector<int> find_max_clique(Graph &grafo)
 {
     vector<int> clique;
     return rec_max_clique(grafo, 0, clique);
@@ -76,12 +79,12 @@ vector<int> find_max_clique(Graph &grafo, int n_vertices)
 int main()
 {
     int n_vertices;
-    float time = omp_get_wtime();
-    Graph grafo = LerGrafo("grafo.txt", n_vertices);
+    Graph grafo = ReadGraph("grafo.txt", n_vertices);
     std::cout << "Grafo com " << n_vertices << " vertices" << endl;
     vector<int> max_clique;
 
-    max_clique = find_max_clique(grafo, n_vertices);
+    float time = omp_get_wtime();
+    max_clique = find_max_clique(grafo);
     time = omp_get_wtime() - time;
     // 2.5~2.7 com media em 2.5 segundos.
     std::cout << "Clique máxima encontrada em " << time << " Segundos" << endl;
