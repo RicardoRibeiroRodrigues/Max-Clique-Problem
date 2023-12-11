@@ -6,11 +6,11 @@ Este projeto aborda o Problema do Clique Máximo, um problema fundamental na teo
 
 O relatório completo do projeto está disponível no arquivo [relatorio.ipynb](relatorio.ipynb) e exportado para PDF em [relatorio.pdf](relatorio.pdf).
 
-## Autores
+## Autor
 
 - Ricardo Ribeiro Rodrigues
 
 ## Licença
 
-Este projeto é licenciado sob a MIT. Veja o arquivo [LICENSE.md](LICENSE.md) para obter detalhes.
+Este projeto é licenciado sob a MIT. Veja o arquivo [LICENSE](LICENSE) para obter detalhes.
 
